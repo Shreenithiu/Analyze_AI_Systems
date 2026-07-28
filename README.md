@@ -41,7 +41,3 @@ Files
 * ai_systems_queries.sql
 * findings.md
 
-
-```bash
-sqlite3 epochdb.db < ai_systems_queries.sql
-```
