@@ -1,0 +1,73 @@
+-- Task 1: Explore database tables
+.tables
+
+-- Task 2-4: Setup and brainstorming 
+
+-- Task 5: Identify most influential organizations (count AI systems by org)
+SELECT 
+    o.org_name AS organization_name, 
+    COUNT(s.system) AS system_count
+FROM 
+    orgs o
+JOIN 
+    systems s ON o.org_id = s.org_id
+GROUP BY 
+    o.org_name
+ORDER BY 
+    system_count DESC;
+
+-- Task 6: Filter by AI system type and organization type (Image generation)
+SELECT 
+    o.org_name AS organization_name, 
+    o.org_type AS organization_type,  
+    COUNT(s.system) AS image_generation_count,  
+    p.task AS problem_task  
+FROM 
+    orgs o
+JOIN 
+    systems s ON o.org_id = s.org_id  
+JOIN 
+    problems p ON s.problem_id = p.problem_id  
+WHERE 
+    p.task = 'Image generation' 
+GROUP BY 
+    o.org_name, o.org_type  
+ORDER BY 
+    image_generation_count DESC;
+
+-- Task 7: Count systems by year (growth over time)
+SELECT 
+    STRFTIME('%Y', publication_date) AS year,
+    COUNT(*) AS system_count
+FROM 
+    systems
+GROUP BY year
+ORDER BY year;
+
+-- Task 8: Revised query with STRFTIME (SQLite compatible - YEAR function doesn't work)
+SELECT 
+    STRFTIME('%Y', s.publication_date) AS year,  
+    COUNT(s.system) AS system_count,  
+    MAX(s.parameters) AS max_parameters  
+FROM 
+    systems s
+GROUP BY 
+    year  
+ORDER BY 
+    year;
+
+-- Task 9: Top 5 AI problems by organization count
+SELECT 
+    p.task AS ai_problem,  
+    COUNT(DISTINCT o.org_id) AS organization_count  
+FROM 
+    problems p
+JOIN 
+    systems s ON p.problem_id = s.problem_id  
+JOIN 
+    orgs o ON s.org_id = o.org_id  
+GROUP BY 
+    p.task  
+ORDER BY 
+    organization_count DESC  
+LIMIT 5;
