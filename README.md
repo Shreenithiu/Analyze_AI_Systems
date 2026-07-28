@@ -6,10 +6,10 @@ Completed as part of the Codecademy SQL learning path.
 
 Dataset
 
-**Tables:**
-- `systems`: AI systems with publication dates, parameters, organization ID, problem ID
-- `orgs`: Organizations with names and types
-- `problems`: AI problem categories/tasks
+Tables:
+ systems: AI systems with publication dates, parameters, organization ID, problem ID
+ orgs: Organizations with names and types
+ problems: AI problem categories/tasks
 
 Tasks Performed
 
